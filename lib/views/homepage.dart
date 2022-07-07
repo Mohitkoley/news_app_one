@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:news_app_one/controller/fetchnews.dart';
 import 'package:news_app_one/model/headline.dart';
 import 'package:news_app_one/views/detailpage.dart';
+import "dart:ui" as ui;
 
 class HomePage extends GetWidget<FetchNews> {
   @override
@@ -10,16 +12,35 @@ class HomePage extends GetWidget<FetchNews> {
 
   HomePage({Key? key}) : super(key: key);
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  bool light = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+          key: _scaffoldKey,
+          child: ListView.builder(
+            itemCount: 2,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text("Theme"),
+                trailing: Switch(value: light, onChanged: (light) {}),
+              );
+            },
+          )),
       body: CustomScrollView(
         slivers: [
           const SliverAppBar(
             title: Text('News'),
-            //expandedHeight: 200,
-            backgroundColor: Colors.blue,
+            backgroundColor: Colors.white,
             centerTitle: true,
+            floating: true,
+            pinned: false,
+            elevation: 0,
+            foregroundColor: Colors.blue,
+            expandedHeight: 40,
+            //leading: Icon(Icons.menu),
           ),
           SliverFillRemaining(
               child: FutureBuilder(
@@ -35,6 +56,7 @@ class HomePage extends GetWidget<FetchNews> {
                         itemCount: articles.length,
                         itemBuilder: (context, index) {
                           Article article = articles[index];
+                          DateFormat dateFormat = DateFormat('dd MMMM yyyy');
                           return Card(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -45,26 +67,49 @@ class HomePage extends GetWidget<FetchNews> {
                               onTap: () {
                                 Get.to(DetailPage(article: article));
                               },
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  children: [
-                                    Image.network(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Image.network(
                                       article.urlToImage,
-                                      height: 300,
-                                      width: 270,
+                                      fit: BoxFit.cover,
                                     ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                    child: Text(
+                                      textAlign: TextAlign.start,
+                                      maxLines: 4,
                                       article.title,
-                                      textDirection: TextDirection.ltr,
+                                      textDirection: ui.TextDirection.ltr,
                                       style: const TextStyle(
-                                          fontSize: 20, color: Colors.black),
+                                          fontSize: 23, color: Colors.black),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                            " Published at ${dateFormat.format(article.publishedAt)} ",
+                                            style: const TextStyle(
+                                                fontSize: 10,
+                                                color: Colors.grey))
+                                      ],
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
                           );
