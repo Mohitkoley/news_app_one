@@ -3,6 +3,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart' as Dotenv;
 import 'package:get/get.dart';
 import 'package:news_app_one/views/homepage.dart';
 
+import 'theme/theme.dart';
+
 void main() async {
   await Dotenv.dotenv.load();
   runApp(const MyApp());
@@ -14,11 +16,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: HomePage(),
     );
   }
