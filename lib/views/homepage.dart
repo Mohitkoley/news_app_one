@@ -32,12 +32,17 @@ class HomePage extends GetWidget<FetchNews> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Obx(() {
-                  return FaIcon(isLightTheme
-                      ? FontAwesomeIcons.moon
-                      : FontAwesomeIcons.sun);
+                  return FaIcon(
+                    isLightTheme ? FontAwesomeIcons.sun : FontAwesomeIcons.moon,
+                    color: Theme.of(context).colorScheme.secondary,
+                  );
                 }),
                 ObxValue(
                     (data) => Switch(
+                          activeColor: Theme.of(context).colorScheme.secondary,
+                          inactiveThumbColor: Colors.grey,
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
                           value: isLightTheme,
                           onChanged: (data) {
                             setLightTheme(data);
