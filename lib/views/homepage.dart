@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:news_app_one/controller/fetchnews.dart';
@@ -30,11 +31,11 @@ class HomePage extends GetWidget<FetchNews> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "Theme",
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.secondary),
-                ),
+                Obx(() {
+                  return FaIcon(isLightTheme
+                      ? FontAwesomeIcons.moon
+                      : FontAwesomeIcons.sun);
+                }),
                 ObxValue(
                     (data) => Switch(
                           value: isLightTheme,
