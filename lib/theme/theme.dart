@@ -6,14 +6,16 @@ ThemeData lightTheme = ThemeData().copyWith(
   drawerTheme: const DrawerThemeData(backgroundColor: Colors.white),
   backgroundColor: Colors.white,
   colorScheme: ThemeData().colorScheme.copyWith(
-        secondary: Colors.blue,
+        secondary: Colors.blue[90],
       ),
   cardColor: Colors.white,
-  textTheme: const TextTheme(headline1: TextStyle(color: Colors.black)),
+  textTheme: const TextTheme(
+      headline1: TextStyle(color: Colors.black),
+      caption: TextStyle(color: Colors.grey)),
   appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white, foregroundColor: Colors.blue),
   brightness: Brightness.light,
-  primaryColor: Colors.blue,
+  primaryColor: Colors.blue[90],
   buttonTheme: const ButtonThemeData(
     buttonColor: Colors.green,
     disabledColor: Colors.grey,
@@ -29,7 +31,9 @@ ThemeData darkTheme = ThemeData().copyWith(
   cardColor: const Color.fromARGB(255, 31, 29, 29),
   appBarTheme: const AppBarTheme(
       backgroundColor: Colors.black, foregroundColor: Colors.purple),
-  textTheme: const TextTheme(headline1: TextStyle(color: Colors.white)),
+  textTheme: const TextTheme(
+      headline1: TextStyle(color: Colors.white),
+      caption: TextStyle(color: Colors.grey)),
   brightness: Brightness.dark,
   primaryColor: Colors.purpleAccent,
   buttonTheme: const ButtonThemeData(
