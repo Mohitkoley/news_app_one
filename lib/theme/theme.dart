@@ -6,7 +6,7 @@ ThemeData lightTheme = ThemeData().copyWith(
   drawerTheme: const DrawerThemeData(backgroundColor: Colors.white),
   backgroundColor: Colors.white,
   colorScheme: ThemeData().colorScheme.copyWith(
-        secondary: Colors.blue[90],
+        secondary: Colors.blue,
       ),
   cardColor: Colors.white,
   textTheme: const TextTheme(
@@ -15,7 +15,7 @@ ThemeData lightTheme = ThemeData().copyWith(
   appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white, foregroundColor: Colors.blue),
   brightness: Brightness.light,
-  primaryColor: Colors.blue[90],
+  primaryColor: Colors.blue,
   buttonTheme: const ButtonThemeData(
     buttonColor: Colors.green,
     disabledColor: Colors.grey,
