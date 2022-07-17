@@ -6,15 +6,30 @@ import 'package:news_app_one/model/headline.dart';
 import 'package:news_app_one/views/detailpage.dart';
 import "dart:ui" as ui;
 
-class Search extends GetWidget {
-  SearchNews search = Get.put(SearchNews());
+class Search extends StatefulWidget {
   Search({Key? key}) : super(key: key);
 
+  @override
+  State<Search> createState() => _SearchState();
+}
+
+class _SearchState extends State<Search> {
+  SearchNews search = Get.put(SearchNews());
+
+  @override
+  void initState() {
+    addSearch();
+    super.initState();
+  }
+
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
+
   GlobalKey<FormState> newsearch = GlobalKey<FormState>();
+
   TextEditingController searchcontroller = TextEditingController();
-  String searchText = '';
+
   RxList<Article> articles = RxList<Article>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,42 +39,60 @@ class Search extends GetWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
-              textDirection: ui.TextDirection.ltr,
               controller: searchcontroller,
+              style: TextStyle(color: Theme.of(context).primaryColor),
+              textDirection: ui.TextDirection.ltr,
+              //controller: searchcontroller,
               key: newsearch,
-              onChanged: (value) {
-                search.fetchSearch(value);
+              onChanged: (String value) {
+                setState(() {
+                  search.fetchSearch(value);
+                });
               },
               onFieldSubmitted: (value) {
                 search.fetchSearch(value);
-              },
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Please enter a search term";
-                }
-                return null;
               },
               onEditingComplete: () {
                 search.fetchSearch(searchcontroller.text);
               },
               decoration: InputDecoration(
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                contentPadding: const EdgeInsets.all(10),
+                disabledBorder: OutlineInputBorder(
+                  borderSide:
+                      const BorderSide(color: Colors.yellowAccent, width: 1.0),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  gapPadding: 10,
+                  borderSide: BorderSide(
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                focusColor: Theme.of(context).primaryColor,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
             ),
             const SizedBox(
               height: 10,
             ),
             Expanded(
-              child: StreamBuilder(
-                  stream: search.fetchSearch(searchText),
+              child: StreamBuilder<List<Article>>(
+                  initialData: const <Article>[],
+                  stream: search.fetchSearch(searchcontroller.text),
                   builder: (context, snapshot) {
-                    articles =
-                        ((snapshot.data ?? <Article>[]) as List<Article>).obs;
+                    articles = (snapshot.data ?? <Article>[]).obs;
                     if (snapshot.data == null) {
-                      return Text("Search Anything",
-                          style:
-                              TextStyle(color: Theme.of(context).primaryColor));
+                      return searchcontroller.text.length > 0
+                          ? Text(
+                              "Not found any result for ${searchcontroller.text} ",
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor))
+                          : Text("Search Anything",
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor));
                     } else if (snapshot.hasError) {
                       return Center(
                         child: Text("${snapshot.error}"),
@@ -139,5 +172,11 @@ class Search extends GetWidget {
             ),
           ],
         ));
+  }
+
+  addSearch() {
+    setState(() {
+      search.fetchSearch(searchcontroller.text);
+    });
   }
 }

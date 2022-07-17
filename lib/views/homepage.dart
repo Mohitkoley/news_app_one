@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:news_app_one/theme/theme.dart';
-import 'package:news_app_one/views/categories.dart';
+import 'package:news_app_one/views/categoriespage.dart';
 import 'package:news_app_one/views/home.dart';
 import 'package:news_app_one/views/publishers.dart';
 import 'package:news_app_one/views/search.dart';
@@ -11,7 +11,7 @@ import 'package:news_app_one/views/search.dart';
 class HomePage extends GetWidget {
   HomePage({Key? key}) : super(key: key);
 
-  List<Widget> pages = [Home(), Search(), Categories(), Publisher()];
+  List<Widget> pages = [Home(), Search(), CategoriesPage(), Publisher()];
   RxInt index = 0.obs;
   final GlobalKey<DrawerControllerState> _drawerKey =
       GlobalKey<DrawerControllerState>();
