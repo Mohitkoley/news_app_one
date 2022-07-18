@@ -9,7 +9,7 @@ class Categories {
 
 class CategoriesList extends GetxController {
   List<Categories> categoriesList = [
-    Categories(imageUrl: "assets/business.jpg", category: "buisness"),
+    Categories(imageUrl: "assets/business.jpg", category: "business"),
     Categories(imageUrl: "assets/entertainment.jpg", category: "entertainment"),
     Categories(imageUrl: "assets/health.jpg", category: "health"),
     Categories(imageUrl: "assets/science.jpg", category: "science"),

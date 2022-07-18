@@ -85,14 +85,16 @@ class _SearchState extends State<Search> {
                   builder: (context, snapshot) {
                     articles = (snapshot.data ?? <Article>[]).obs;
                     if (snapshot.data == null) {
-                      return searchcontroller.text.length > 0
-                          ? Text(
-                              "Not found any result for ${searchcontroller.text} ",
+                      return searchcontroller.text.isEmpty
+                          ? Text("Search for news",
                               style: TextStyle(
                                   color: Theme.of(context).primaryColor))
-                          : Text("Search Anything",
-                              style: TextStyle(
-                                  color: Theme.of(context).primaryColor));
+                          : Center(
+                              child: Text(
+                                  "Not found any result for ${searchcontroller.text} ",
+                                  style: TextStyle(
+                                      color: Theme.of(context).primaryColor)),
+                            );
                     } else if (snapshot.hasError) {
                       return Center(
                         child: Text("${snapshot.error}"),

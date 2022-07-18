@@ -13,6 +13,9 @@ class SearchNews extends GetxController {
       Headline headline = headlineFromJson(response.body);
       yield headline.articles;
     } else {
+      if (response.statusCode == 429) {
+        Get.snackbar("Error is: ", "Too Many Requests");
+      }
       throw Exception("Error is: ${response.statusCode}");
     }
   }

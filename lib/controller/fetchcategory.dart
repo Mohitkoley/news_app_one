@@ -1,27 +1,27 @@
-import 'dart:convert';
-
-import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import "package:get/get.dart";
-import "package:http/http.dart" as http;
+import 'package:http/http.dart' as http;
 import 'package:news_app_one/model/headline.dart';
 
-class FetchNews extends GetxController {
-  String? key = dotenv.env['apikey'];
+class Fetchcategory extends GetxController {
+  Fetchcategory() {
+    dotenv.load(fileName: ".env");
+  }
 
-  getNews() async {
+  fetchcat(String str) async {
+    final key = dotenv.env['apikey'];
     Uri url = Uri.parse(
-        "https://newsapi.org/v2/top-headlines?country=in&apiKey=$key");
+        "https://newsapi.org/v2/top-headlines?country=in&category=$str&apiKey=$key");
 
     final response = await http.get(url);
     if (response.statusCode == 200) {
-      //debugPrint("Response:  ${response.body}");
       Headline headline = headlineFromJson(response.body);
       List<Article> articles = headline.articles;
       return articles;
     } else {
       if (response.statusCode == 429) {
-        Get.snackbar("Error is: ", "Too Many Requests");
+        Get.snackbar("Error is: ",
+            "Too Many Requests \n This issue will reset in 12 hours");
       }
       throw Exception("Error is: ${response.statusCode}");
     }
