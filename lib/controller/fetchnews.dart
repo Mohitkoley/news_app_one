@@ -21,7 +21,8 @@ class FetchNews extends GetxController {
       return articles;
     } else {
       if (response.statusCode == 429) {
-        Get.snackbar("Error is: ", "Too Many Requests");
+        Get.snackbar("Error is: ",
+            "Too Many Requests \n This issue will reset in 12 hours");
       }
       throw Exception("Error is: ${response.statusCode}");
     }
