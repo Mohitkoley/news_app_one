@@ -21,98 +21,123 @@ class newsbycategory extends GetWidget<Fetchcategory> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Theme.of(context).backgroundColor,
-      body: FutureBuilder(
-        future: fetchcategory.fetchcat(categorystring),
-        builder: ((context, snapshot) {
-          List<Article> articles =
-              (snapshot.data ?? <Article>[]) as List<Article>;
-          if (snapshot.hasError) {
-            return Center(
-              child: Text("${snapshot.error}",
-                  style: const TextStyle(color: Colors.red)),
-            );
-          } else if (snapshot.data == null) {
-            return Center(
-              child: CircularProgressIndicator(
-                  color: Theme.of(context).primaryColor),
-            );
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (snapshot.hasData) {
-            return ListView.builder(
-                key: const PageStorageKey<String>("category"),
-                itemCount: articles.length,
-                itemBuilder: (context, index) {
-                  Article article = articles[index];
-                  DateFormat dateFormat = DateFormat('dd MMMM yyyy');
-                  return Card(
-                    shadowColor: Colors.grey,
-                    color: Theme.of(context).cardColor,
-                    shape: RoundedRectangleBorder(
+      body: NestedScrollView(
+        headerSliverBuilder: (context, isScrolledinsideBox) => [
+          SliverAppBar(
+              expandedHeight: 200,
+              centerTitle: true,
+              stretch: true,
+              title: Text(categorystring,
+                  style: TextStyle(
+                      fontFamily: "Aladin",
+                      fontSize: 45,
+                      color: Colors.white.withOpacity(0.6))),
+              snap: true,
+              floating: true,
+              pinned: true,
+              flexibleSpace: Container(
+                  decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                    ),
-                    elevation: 5,
-                    margin: const EdgeInsets.all(10),
-                    child: GestureDetector(
-                      onTap: () {
-                        Get.to(DetailPage(article: article));
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Image.network(
-                              article.urlToImage,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                            child: Text(
-                              textAlign: TextAlign.start,
-                              maxLines: 4,
-                              article.title,
-                              textDirection: ui.TextDirection.ltr,
-                              style: TextStyle(
-                                  fontSize: 23,
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .headline1!
-                                      .color),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(
-                                    " Published at ${dateFormat.format(article.publishedAt)} ",
-                                    style: const TextStyle(
-                                        fontSize: 10, color: Colors.grey))
-                              ],
-                            ),
-                          )
-                        ],
+                      image: DecorationImage(
+                        image: AssetImage(appbarimage),
+                        fit: BoxFit.cover,
+                        colorFilter: ColorFilter.mode(
+                            Colors.black.withOpacity(0.50), BlendMode.darken),
+                      ))))
+        ],
+        body: FutureBuilder(
+          future: fetchcategory.fetchcat(categorystring),
+          builder: ((context, snapshot) {
+            List<Article> articles =
+                (snapshot.data ?? <Article>[]) as List<Article>;
+            if (snapshot.hasError) {
+              return Center(
+                child: Text("${snapshot.error}",
+                    style: const TextStyle(color: Colors.red)),
+              );
+            } else if (snapshot.data == null) {
+              return Center(
+                child: CircularProgressIndicator(
+                    color: Theme.of(context).primaryColor),
+              );
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasData) {
+              return ListView.builder(
+                  key: const PageStorageKey<String>("category"),
+                  itemCount: articles.length,
+                  itemBuilder: (context, index) {
+                    Article article = articles[index];
+                    DateFormat dateFormat = DateFormat('dd MMMM yyyy');
+                    return Card(
+                      shadowColor: Colors.grey,
+                      color: Theme.of(context).cardColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                    ),
-                  );
-                });
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        }),
+                      elevation: 5,
+                      margin: const EdgeInsets.all(10),
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.to(DetailPage(article: article));
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Image.network(
+                                article.urlToImage,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                              child: Text(
+                                textAlign: TextAlign.start,
+                                maxLines: 4,
+                                article.title,
+                                textDirection: ui.TextDirection.ltr,
+                                style: TextStyle(
+                                    fontSize: 23,
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .headline1!
+                                        .color),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                      " Published at ${dateFormat.format(article.publishedAt)} ",
+                                      style: const TextStyle(
+                                          fontSize: 10, color: Colors.grey))
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  });
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          }),
+        ),
       ),
     );
   }
