@@ -1,18 +1,20 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import "package:get/get.dart";
 import "package:http/http.dart" as http;
+import "package:flutter_dotenv/flutter_dotenv.dart";
 import 'package:news_app_one/model/headline.dart';
 
-class FetchNews extends GetxController {
-  String? key = dotenv.env['apikey'];
+class FetchPublisher extends GetxController {
+  FetchPublisher() {
+    dotenv.load(fileName: ".env");
+  }
 
-  getNews() async {
-    Uri url = Uri.parse(
-        "https://newsapi.org/v2/top-headlines?country=in&apiKey=$key");
+  fetchcat(String str) async {
+    final key = dotenv.env['apikey'];
+    Uri url =
+        Uri.parse("https://newsapi.org/v2/everything?domains=$str&apiKey=$key");
 
     final response = await http.get(url);
     if (response.statusCode == 200) {
-      //debugPrint("Response:  ${response.body}");
       Headline headline = headlineFromJson(response.body);
       List<Article> articles = headline.articles;
       return articles;

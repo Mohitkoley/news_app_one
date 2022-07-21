@@ -37,13 +37,12 @@ class newsbycategory extends GetWidget<Fetchcategory> {
               pinned: true,
               flexibleSpace: Container(
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
-                        image: AssetImage(appbarimage),
-                        fit: BoxFit.cover,
-                        colorFilter: ColorFilter.mode(
-                            Colors.black.withOpacity(0.50), BlendMode.darken),
-                      ))))
+                image: AssetImage(appbarimage),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.50), BlendMode.darken),
+              ))))
         ],
         body: FutureBuilder(
           future: fetchcategory.fetchcat(categorystring),

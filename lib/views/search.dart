@@ -38,40 +38,66 @@ class _SearchState extends State<Search> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextFormField(
-              controller: searchcontroller,
-              style: TextStyle(color: Theme.of(context).primaryColor),
-              textDirection: ui.TextDirection.ltr,
-              //controller: searchcontroller,
-              key: newsearch,
-              onChanged: (String value) {
-                setState(() {
+            Padding(
+              padding: const EdgeInsets.fromLTRB(5, 10, 5, 5),
+              child: TextFormField(
+                controller: searchcontroller,
+                style: TextStyle(color: Theme.of(context).primaryColor),
+                textDirection: ui.TextDirection.ltr,
+                //controller: searchcontroller,
+                key: newsearch,
+                onChanged: (String value) {
+                  setState(() {
+                    search.fetchSearch(value);
+                  });
+                },
+                onFieldSubmitted: (value) {
                   search.fetchSearch(value);
-                });
-              },
-              onFieldSubmitted: (value) {
-                search.fetchSearch(value);
-              },
-              onEditingComplete: () {
-                search.fetchSearch(searchcontroller.text);
-              },
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(10),
-                disabledBorder: OutlineInputBorder(
-                  borderSide:
-                      const BorderSide(color: Colors.yellowAccent, width: 1.0),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  gapPadding: 10,
-                  borderSide: BorderSide(
-                    color: Theme.of(context).primaryColor,
+                },
+                onEditingComplete: () {
+                  search.fetchSearch(searchcontroller.text);
+                },
+                decoration: InputDecoration(
+                  suffixIcon: searchcontroller.text.isEmpty
+                      ? Icon(
+                          Icons.search,
+                          color: Theme.of(context).primaryColor,
+                        )
+                      : IconButton(
+                          onPressed: () {
+                            setState(() {
+                              searchcontroller.clear();
+                            });
+                          },
+                          icon: Icon(
+                            Icons.backspace,
+                            color:
+                                Theme.of(context).primaryColor.withOpacity(0.6),
+                          )),
+                  hintText: "News",
+                  hintStyle: TextStyle(
+                      color: Theme.of(context).textTheme.caption!.color),
+                  contentPadding: const EdgeInsets.all(10),
+                  disabledBorder: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.0),
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                focusColor: Theme.of(context).primaryColor,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  focusedBorder: OutlineInputBorder(
+                    gapPadding: 10,
+                    borderSide: BorderSide(
+                      style: BorderStyle.solid,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  focusColor: Theme.of(context).primaryColor,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.grey,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
               ),
             ),
@@ -86,9 +112,12 @@ class _SearchState extends State<Search> {
                     articles = (snapshot.data ?? <Article>[]).obs;
                     if (snapshot.data == null) {
                       return searchcontroller.text.isEmpty
-                          ? Text("Search for news",
-                              style: TextStyle(
-                                  color: Theme.of(context).primaryColor))
+                          ? Center(
+                              child: Text(
+                                  "Search by keyword or Publisher or Category",
+                                  style: TextStyle(
+                                      color: Theme.of(context).primaryColor)),
+                            )
                           : Center(
                               child: Text(
                                   "Not found any result for ${searchcontroller.text} ",

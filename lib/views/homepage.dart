@@ -5,13 +5,13 @@ import 'package:get/get.dart';
 import 'package:news_app_one/theme/theme.dart';
 import 'package:news_app_one/views/categoriespage.dart';
 import 'package:news_app_one/views/home.dart';
-import 'package:news_app_one/views/publishers.dart';
+import 'package:news_app_one/views/publisherspage.dart';
 import 'package:news_app_one/views/search.dart';
 
 class HomePage extends GetWidget {
   HomePage({Key? key}) : super(key: key);
 
-  List<Widget> pages = [Home(), Search(), CategoriesPage(), Publisher()];
+  List<Widget> pages = [Home(), Search(), CategoriesPage(), PublisherPage()];
   RxInt index = 0.obs;
   final GlobalKey<DrawerControllerState> _drawerKey =
       GlobalKey<DrawerControllerState>();
@@ -72,8 +72,10 @@ class HomePage extends GetWidget {
           },
           animationDuration: const Duration(milliseconds: 300),
           items: [
-            Icon(Icons.home,
-                color: Theme.of(context).textTheme.headline1!.color),
+            Icon(
+              Icons.home,
+              color: Theme.of(context).textTheme.headline1!.color,
+            ),
             Icon(Icons.search,
                 color: Theme.of(context).textTheme.headline1!.color),
             Icon(Icons.category,
