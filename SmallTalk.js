@@ -621,3 +621,14 @@ question(
         'sourabh is a web developer currently pursuing M.C.A at Parul university '
     ),
 );
+
+question(
+    'Do you have girlfriend?',
+    reply(
+        'Yeah, but from another nation',
+        follow(
+            '$(Q which nation|from where|nation)',
+            reply('From my imagination'),
+        ),
+    ),
+);
