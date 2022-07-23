@@ -603,6 +603,6 @@ question(
 question(
     'Who is harsh patel',
     reply(
-        '(harsh is a moron|harsh is burden on earth)'
+        'harsh is (a moron|burden on earth)'
     ),
 );
