@@ -61,3 +61,7 @@ intent("Go Back",p=>{
     p.play({command: "back"});
     p.play("Going back to news headline");
 });
+
+question('Who is developer of this app', p =>  {
+    p.play('Devloper of this app is  (Mohit koley|Rockey)');
+});
