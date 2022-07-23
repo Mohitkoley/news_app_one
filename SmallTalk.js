@@ -599,3 +599,10 @@ question(
         ),
     ),
 );
+
+question(
+    'Who is harsh patel',
+    reply(
+        '(harsh is a moron|harsh is burden on earth)'
+    ),
+);
