@@ -610,15 +610,14 @@ question(
 question(
     'Who is mohit',
     reply(
-        'mohit is a flutter developer currently pursuing M.C.A at Parul university ',
-        'mohit is from jamshedpur,Jharkhand'
+        'mohit is a flutter developer currently pursuing M.C.A at Parul university '
+        
     ),
 );
 
 question(
     'Who is sourabh',
     reply(
-        'sourabh is a web developer currently pursuing M.C.A at Parul university ',
-        'sourabh is from Gumla,Jharkhand'
+        'sourabh is a web developer currently pursuing M.C.A at Parul university '
     ),
 );
