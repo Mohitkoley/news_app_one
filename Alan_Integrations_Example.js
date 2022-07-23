@@ -63,5 +63,5 @@ intent("Go Back",p=>{
 });
 
 question('Who is developer of this app', p =>  {
-    p.play('Devloper of this app is  (Mohit koley|Rockey)');
+    p.play('Devloper of this app is  (Mohit and sourabh)');
 });
