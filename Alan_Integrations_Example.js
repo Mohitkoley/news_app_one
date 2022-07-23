@@ -60,4 +60,4 @@ question('what (platforms|SDK|frameworks) are supported', p => {
 intent("Go Back",p=>{
     p.play({command: "Back"});
     p.play("Going back to news headline");
-})
+});
