@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as Dotenv;
 import 'package:get/get.dart';
+import 'package:news_app_one/views/detailpage.dart';
 import 'package:news_app_one/views/homepage.dart';
 
 import 'theme/theme.dart';

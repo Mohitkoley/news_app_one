@@ -27,6 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  alan_voice: ^3.6.0
   cupertino_icons: ^1.0.2
   curved_navigation_bar: ^1.0.3
   date_time: ^0.6.0
@@ -36,11 +37,11 @@ dependencies:
   flutter_hooks: ^0.18.5+1
   font_awesome_flutter: ^10.1.0
   get: ^4.6.5
-  get_storage: ^2.0.3
   google_fonts: ^3.0.1
   http: ^0.13.4
   intl: ^0.17.0
   shared_preferences: ^2.0.15
+  url_launcher: ^6.1.5
 
 dev_dependencies:
   flutter_lints: ^2.0.0
