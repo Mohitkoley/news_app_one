@@ -599,3 +599,36 @@ question(
         ),
     ),
 );
+
+question(
+    'Who is harsh patel',
+    reply(
+        'harsh is (a moron|burden on earth)'
+    ),
+);
+
+question(
+    'Who is mohit',
+    reply(
+        'mohit is a flutter developer currently pursuing M.C.A at Parul university '
+        
+    ),
+);
+
+question(
+    'Who is sourabh',
+    reply(
+        'sourabh is a web developer currently pursuing M.C.A at Parul university '
+    ),
+);
+
+question(
+    'Do you have girlfriend?',
+    reply(
+        'Yeah, but from another nation',
+        follow(
+            '$(Q which nation|from where|nation)',
+            reply('From my imagination'),
+        ),
+    ),
+);

@@ -46,14 +46,14 @@
 // - Web Component: https://alan.app/docs/client-api/web/web-component
 
 question('what is this', p =>  {
-    p.play('This is an example app with voice capabilities. (Powered by Alan|Voice support is provided by Alan)');
+    p.play('This is a news app with voice capabilities. (Powered by Alan|Voice support is provided by Alan)');
 });
 
 question('what is Alan (AI|Platform|)', p => {
     p.play('Alan (AI|Platform) is a platform that will allow you to voice enable any application. Be it mobile app on iOS or Android, or a web page.');
 });
 
-question('what (platforms|SDK|frameworks) are supported', p => {
+question('what (platforms|SDK|frameorks) are supported', p => {
     p.play('Alan (AI|Platform) supports native iOS, Android, and Web applications. As well as Flutter, Ionic and many other popular frameworks.');
 });
 
@@ -63,5 +63,5 @@ intent("Go Back",p=>{
 });
 
 question('Who is developer of this app', p =>  {
-    p.play('Devloper of this app is  (Mohit and sourabh)');
+    p.play('Devloper of this app is Mohit and sourabh');
 });
