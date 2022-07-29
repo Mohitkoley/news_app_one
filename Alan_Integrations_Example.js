@@ -70,3 +70,8 @@ intent("Read news",p=>{
     p.play("Reading News");
     p.play({command:"read"});
 });
+
+intent("Share (this news|news)",p=>{
+    p.play("sharing news");
+    p.play({command:"share"});
+});
