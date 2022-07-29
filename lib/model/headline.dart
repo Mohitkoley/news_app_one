@@ -37,23 +37,23 @@ class Headline {
 class Article {
   Article({
     required this.source,
-    this.author,
+    required this.author,
     required this.title,
-    this.description,
+    required this.description,
     required this.url,
     required this.urlToImage,
     required this.publishedAt,
-    this.content,
+    required this.content,
   });
 
   Source source;
-  String? author;
+  String author;
   String title;
-  String? description;
+  String description;
   String url;
   String urlToImage;
   DateTime publishedAt;
-  String? content;
+  String content;
 
   factory Article.fromJson(Map<String, dynamic> json) => Article(
         source: Source.fromJson(json["source"]),

@@ -8,6 +8,9 @@ ThemeData lightTheme = ThemeData().copyWith(
   colorScheme: ThemeData().colorScheme.copyWith(
         secondary: Colors.blue,
       ),
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    backgroundColor: Colors.blue,
+  ),
   cardColor: Colors.white,
   textTheme: const TextTheme(
       headline1: TextStyle(color: Colors.black),
@@ -23,12 +26,13 @@ ThemeData lightTheme = ThemeData().copyWith(
 );
 
 ThemeData darkTheme = ThemeData().copyWith(
-  
   drawerTheme: const DrawerThemeData(backgroundColor: Colors.black),
   backgroundColor: Colors.black,
   colorScheme: ThemeData().colorScheme.copyWith(
         secondary: Colors.purple,
       ),
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: Colors.purple, hoverColor: Colors.purpleAccent),
   cardColor: const Color.fromARGB(255, 31, 29, 29),
   appBarTheme: const AppBarTheme(
       backgroundColor: Colors.black, foregroundColor: Colors.purple),
