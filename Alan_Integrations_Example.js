@@ -65,3 +65,8 @@ intent("Go Back",p=>{
 question('Who is developer of this app', p =>  {
     p.play('Devloper of this app is Mohit and sourabh');
 });
+
+intent("Read news",p=>{
+    p.play("Reading News");
+    p.play({command:"read"});
+});
