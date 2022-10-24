@@ -5,12 +5,15 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'package:news_app_one/model/headline.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/link.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class DetailPage extends GetWidget {
+  FavLists fav = Get.put(FavLists());
+  var isFav = false.obs;
   Article article;
   ScrollController _scrollController = ScrollController();
   double textSize = 25;
@@ -90,79 +93,129 @@ class DetailPage extends GetWidget {
                       )))
             ];
           }),
-          body: Container(
-              color: Theme.of(context).backgroundColor,
-              width: MediaQuery.of(context).size.width,
-              height: 300,
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(article.source.name,
-                        textAlign: TextAlign.left,
-                        style: GoogleFonts.autourOne(
-                          shadows: [
-                            const Shadow(
-                              blurRadius: 8,
-                              color: Colors.grey,
-                              offset: Offset(5, 5),
-                            ),
-                          ],
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).appBarTheme.foregroundColor,
-                        )),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Column(
+              children: [
+                const SizedBox(height: 10),
+                SizedBox(
+                  height: 30,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Chip(
+                        backgroundColor: Theme.of(context).primaryColor,
+                        labelStyle: TextStyle(
+                            fontSize: 15,
+                            color:
+                                Theme.of(context).textTheme.headline1!.color),
+                        label: Text(
+                          article.source.name,
+                        ),
+                      ),
+                      // IconButton(
+                      //   iconSize: 30,
+                      //   color: Theme.of(context).primaryColor,
+                      //   onPressed: () {
+                      //     isFav = !isFav;
+                      //     article.copyWith(isFav: isFav);
+                      //     if (article.isFav == true) {
+                      //       Get.snackbar("Added", "Article to Favorite List",
+                      //           backgroundColor: Colors.green,
+                      //           snackPosition: SnackPosition.TOP);
+                      //       fav.addFav(article);
+                      //     } else {
+                      //       Get.snackbar(
+                      //           "Removed", "Article from Favorite List",
+                      //           backgroundColor: Colors.red,
+                      //           snackPosition: SnackPosition.TOP);
+                      //       fav.removeFav(article);
+                      //     }
+                      //   },
+                      //   icon: Icon(article.isFav
+                      //       ? Icons.bookmark_add
+                      //       : Icons.bookmark_add_outlined),
+                      // ),
+                      Obx(() => LiteRollingSwitch(
+                            onTap: () {},
+                            onChanged: (value) {
+                              isFav.value = value;
+                              article.copyWith(isFav: isFav.value);
+                              if (article.isFav == true) {
+                                Get.snackbar(
+                                    "Added", "Article to Favorite List",
+                                    backgroundColor: Colors.green,
+                                    snackPosition: SnackPosition.TOP);
+                                fav.addFav(article);
+                              } else {
+                                Get.snackbar(
+                                    "Removed", "Article from Favorite List",
+                                    backgroundColor: Colors.red,
+                                    snackPosition: SnackPosition.TOP);
+                                fav.removeFav(article);
+                              }
+                            },
+                            value: isFav.value,
+                            textOn: 'Fav',
+                            textOff: 'UnFav',
+                            colorOff: Colors.grey,
+                            colorOn: Colors.blue,
+                            iconOff: Icons.bookmark_add_outlined,
+                            iconOn: Icons.bookmark_add,
+                            onDoubleTap: () {},
+                            onSwipe: () {},
+                          ))
+                    ],
                   ),
-                  const SizedBox(height: 10),
-                  Flexible(
-                    child: Text("$content ",
-                        maxLines: 10,
-                        softWrap: true,
-                        textAlign: TextAlign.left,
-                        overflow: TextOverflow.fade,
-                        style: GoogleFonts.autourOne(
-                          color: Theme.of(context).textTheme.headline1!.color,
-                          fontSize: 25,
-                          letterSpacing: 1.5,
-                        )),
-                  ),
-                  Text("For more tap below 👇",
-                      style: GoogleFonts.autourOne(
-                        color: Theme.of(context).textTheme.headline1!.color,
-                        fontSize: 25,
-                        letterSpacing: 1.5,
-                      )),
-                  const SizedBox(height: 15),
-                  Link(
-                      //target: LinkTarget.blank,
-                      uri: Uri.parse(article.url),
-                      builder: ((context, followLink) => MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: GestureDetector(
-                                onTap: followLink,
-                                child: Text(
-                                  article.url,
-                                  maxLines: 2,
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      color: Theme.of(context).primaryColor,
-                                      decoration: TextDecoration.underline),
-                                )),
-                          ))),
-                  const SizedBox(height: 15),
-                  Expanded(
-                      child: Align(
-                    alignment: Alignment.topRight,
-                    child: Text(
-                        "published at ${dateFormat.format(article.publishedAt)}",
-                        style:
-                            const TextStyle(fontSize: 12, color: Colors.grey)),
-                  )),
-                ],
-              )),
+                ),
+                const SizedBox(height: 10),
+                Text("$content ",
+                    maxLines: 10,
+                    // softWrap: true,
+                    textAlign: TextAlign.left,
+                    overflow: TextOverflow.fade,
+                    style: GoogleFonts.autourOne(
+                      color: Theme.of(context).textTheme.headline1!.color,
+                      fontSize: 25,
+                      letterSpacing: 1.5,
+                    )),
+                Text("For more tap below 👇",
+                    style: GoogleFonts.autourOne(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).textTheme.headline1!.color,
+                      fontSize: 25,
+                      letterSpacing: 1.5,
+                    )),
+                const SizedBox(height: 15),
+                Link(
+                    //target: LinkTarget.blank,
+                    uri: Uri.parse(article.url),
+                    builder: ((context, followLink) => MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                              onTap: followLink,
+                              child: Text(
+                                article.url,
+                                maxLines: 2,
+                                softWrap: true,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Theme.of(context).primaryColor,
+                                    decoration: TextDecoration.underline),
+                              )),
+                        ))),
+                const SizedBox(height: 15),
+                Expanded(
+                    child: Align(
+                  alignment: Alignment.topRight,
+                  child: Text(
+                      "published at ${dateFormat.format(article.publishedAt)}",
+                      style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                )),
+              ],
+            ),
+          ),
         ),
         floatingActionButton: FloatingActionButton(
           elevation: 10,

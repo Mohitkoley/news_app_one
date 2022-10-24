@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 ThemeData lightTheme = ThemeData().copyWith(
   drawerTheme: const DrawerThemeData(backgroundColor: Colors.white),
   backgroundColor: Colors.white,
+  scaffoldBackgroundColor: Colors.white,
   colorScheme: ThemeData().colorScheme.copyWith(
         secondary: Colors.blue,
       ),
@@ -31,6 +32,7 @@ ThemeData darkTheme = ThemeData().copyWith(
   colorScheme: ThemeData().colorScheme.copyWith(
         secondary: Colors.purple,
       ),
+  scaffoldBackgroundColor: Colors.black,
   floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: Colors.purple, hoverColor: Colors.purpleAccent),
   cardColor: const Color.fromARGB(255, 31, 29, 29),

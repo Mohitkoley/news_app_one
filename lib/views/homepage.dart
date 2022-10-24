@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:news_app_one/theme/theme.dart';
 import 'package:news_app_one/views/categoriespage.dart';
+import 'package:news_app_one/views/favorite_list.dart';
 import 'package:news_app_one/views/home.dart';
 import 'package:news_app_one/views/publisherspage.dart';
 import 'package:news_app_one/views/search.dart';
@@ -11,7 +12,13 @@ import 'package:news_app_one/views/search.dart';
 class HomePage extends GetWidget {
   HomePage({Key? key}) : super(key: key);
 
-  List<Widget> pages = [Home(), Search(), CategoriesPage(), PublisherPage()];
+  List pages = [
+    Home(),
+    Search(),
+    CategoriesPage(),
+    PublisherPage(),
+    const FavoriteList(),
+  ];
   RxInt index = 0.obs;
   final GlobalKey<DrawerControllerState> _drawerKey =
       GlobalKey<DrawerControllerState>();
@@ -22,7 +29,22 @@ class HomePage extends GetWidget {
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("News"),
+        title: Obx(() {
+          switch (index.value) {
+            case 0:
+              return Text("News");
+            case 1:
+              return Text("Search");
+            case 2:
+              return Text("Categories");
+            case 3:
+              return Text("Publishers");
+            case 4:
+              return Text("Favorites");
+            default:
+              return Text("Headlines");
+          }
+        }),
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
       ),
@@ -81,7 +103,9 @@ class HomePage extends GetWidget {
             Icon(Icons.category,
                 color: Theme.of(context).textTheme.headline1!.color),
             Icon(Icons.group_rounded,
-                color: Theme.of(context).textTheme.headline1!.color)
+                color: Theme.of(context).textTheme.headline1!.color),
+            Icon(Icons.favorite,
+                color: Theme.of(context).textTheme.headline1!.color),
           ]),
     );
   }

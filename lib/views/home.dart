@@ -10,7 +10,9 @@ class Home extends GetWidget<FetchNews> {
   @override
   final controller = Get.put(FetchNews());
 
-  Home({Key? key}) : super(key: key);
+  Home({
+    Key? key,
+  }) : super(key: key);
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool light = false;
@@ -26,8 +28,8 @@ class Home extends GetWidget<FetchNews> {
               child: FutureBuilder(
                   future: controller.getNews(),
                   builder: ((context, snapshot) {
-                    List<Article> articles =
-                        (snapshot.data ?? <Article>[]) as List<Article>;
+                    List<Article> articles = snapshot.data as List<Article>;
+                    // (snapshot.data ?? <Article>[]) as List<Article>;
                     if (snapshot.hasError) {
                       return Center(
                           child: Text(

@@ -2,8 +2,9 @@
 //
 //     final headline = headlineFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
+
+import 'package:get/get.dart';
 
 Headline headlineFromJson(String str) => Headline.fromJson(json.decode(str));
 
@@ -36,6 +37,7 @@ class Headline {
 
 class Article {
   Article({
+    required this.isFav,
     required this.source,
     required this.author,
     required this.title,
@@ -45,7 +47,7 @@ class Article {
     required this.publishedAt,
     required this.content,
   });
-
+  bool isFav;
   Source source;
   String author;
   String title;
@@ -65,10 +67,12 @@ class Article {
             "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019",
         publishedAt: DateTime.parse(json["publishedAt"]),
         content: json["content"] ?? "No Content",
+        isFav: false,
       );
 
   Map<String, dynamic> toJson() => {
         "source": source.toJson(),
+        "isFav": isFav,
         "author": author,
         "title": title,
         "description": description,
@@ -77,6 +81,29 @@ class Article {
         "publishedAt": publishedAt.toIso8601String(),
         "content": content,
       };
+
+  Article copyWith({
+    bool? isFav,
+    Source? source,
+    String? author,
+    String? title,
+    String? description,
+    String? url,
+    String? urlToImage,
+    DateTime? publishedAt,
+    String? content,
+  }) =>
+      Article(
+        author: author ?? this.author,
+        title: title ?? this.title,
+        description: description ?? this.description,
+        url: url ?? this.url,
+        urlToImage: urlToImage ?? this.urlToImage,
+        publishedAt: publishedAt ?? this.publishedAt,
+        content: content ?? this.content,
+        isFav: isFav ?? this.isFav,
+        source: source ?? this.source,
+      );
 }
 
 class Source {
@@ -97,4 +124,16 @@ class Source {
         "id": id ?? "",
         "name": name,
       };
+}
+
+class FavLists extends GetxController {
+  var favList = <Article>[].obs;
+
+  addFav(Article article) {
+    favList.add(article);
+  }
+
+  void removeFav(Article article) {
+    favList.remove(article);
+  }
 }
